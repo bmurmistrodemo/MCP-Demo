@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome - MyApp</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .navbar {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 14px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar .logo { color: #fff; font-size: 22px; font-weight: bold; text-decoration: none; }
+    .navbar .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+    }
+    .navbar .nav-links a:hover { color: #fff; }
+
+    .welcome-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .welcome-container {
+      width: 500px;
+      padding: 50px 32px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .welcome-container .avatar {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #28a745, #20c997);
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 36px;
+    }
+    .welcome-container h2 { color: #333; margin-bottom: 8px; }
+    .welcome-container .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
+
+    .dashboard-cards {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .card {
+      flex: 1;
+      padding: 20px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .card:hover {
+      border-color: #667eea;
+      box-shadow: 0 4px 12px rgba(102,126,234,0.15);
+    }
+    .card .card-icon { font-size: 28px; margin-bottom: 8px; }
+    .card .card-title { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px; }
+    .card .card-value { font-size: 22px; font-weight: 700; color: #667eea; }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      text-decoration: none;
+      text-align: center;
+    }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border: none; }
+    .btn-outline { background: #fff; color: #667eea; border: 2px solid #667eea; }
+    .btn-danger { background: #e74c3c; color: #fff; border: none; }
+
+    .user-info {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: #666;
+    }
+    .user-info span { display: flex; align-items: center; gap: 6px; }
+
+    .footer {
+      text-align: center;
+      padding: 16px;
+      color: rgba(255,255,255,0.6);
+      font-size: 12px;
+    }
+    .footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 14px 24px;
+      background: #333;
+      color: #fff;
+      border-radius: 8px;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+    .toast.show { transform: translateX(0); }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="welcome.html" class="logo">MyApp</a>
+    <div class="nav-links">
+      <a href="#" id="navDashboard">Dashboard</a>
+      <a href="#" id="navSettings">Settings</a>
+      <a href="login.html" id="navLogout">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Welcome Content -->
+  <div class="welcome-wrapper">
+    <div class="welcome-container">
+      <div class="avatar" id="welcomeAvatar">&#10004;</div>
+      <h2 id="welcomeHeading">Hello back, User!!!!</h2>
+      <p class="subtitle">Here's a quick snapshot of your account</p>
+
+      <div class="user-info">
+        <span>&#128231; user@example.com</span>
+        <span>&#128197; Joined Jan 2026</span>
+      </div>
+
+      <div class="dashboard-cards">
+        <div class="card" id="cardProjects">
+          <div class="card-icon">&#128196;</div>
+          <div class="card-title">Projects</div>
+          <div class="card-value">12</div>
+        </div>
+        <div class="card" id="cardTests">
+          <div class="card-icon">&#9989;</div>
+          <div class="card-title">Tests Run</div>
+          <div class="card-value">348</div>
+        </div>
+        <div class="card" id="cardIssues">
+          <div class="card-icon">&#128030;</div>
+          <div class="card-title">Issues</div>
+          <div class="card-value">5</div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" id="btnNewProject">New Project</button>
+        <button class="btn btn-outline" id="btnViewReports">View Reports</button>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-danger" id="btnLogout">sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2026 MyApp. <a href="#">Privacy Policy</a> &middot; <a href="#">Terms of Service</a>
+  </footer>
+
+  <script>
+    const toast = document.getElementById('toast');
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    document.getElementById('btnNewProject').addEventListener('click', function() {
+      showToast('Creating new project...');
+    });
+    document.getElementById('btnViewReports').addEventListener('click', function() {
+      showToast('Loading reports...');
+    });
+    document.getElementById('btnLogout').addEventListener('click', function() {
+      showToast('Signing in...');
+      setTimeout(() => window.location.href = 'login.html', 1500);
+    });
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', function() {
+        showToast('Opening ' + card.querySelector('.card-title').textContent + '...');
+      });
+    });
+  </script>
+</body>
+</html>
