@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
-import { EyesFixture } from '@applitools/eyes-playwright/fixture';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,7 +10,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
-export default defineConfig(/** @type {import('@playwright/test').PlaywrightTestConfig<EyesFixture>} */({
+export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -83,5 +82,5 @@ export default defineConfig(/** @type {import('@playwright/test').PlaywrightTest
   //   url: 'http://localhost:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-}));
+});
 
