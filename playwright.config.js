@@ -35,7 +35,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     eyesConfig: {
       apiKey: process.env.APPLITOOLS_API_KEY,
-      failTestsOnDiff: false:,
+      failTestsOnDiff: false,
     },
   },
 
