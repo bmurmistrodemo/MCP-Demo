@@ -9,4 +9,5 @@ test('login page - title and form elements', async ({ page }) => {
   await expect(page).toHaveTitle('Login Page');
   await expect(page.getByRole('heading', { name: 'Welcome Back' })).toBeVisible();
   await expect(page.locator('#loginBtn')).toBeVisible();
+
 });
