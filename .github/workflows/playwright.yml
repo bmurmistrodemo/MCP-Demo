@@ -36,4 +36,4 @@ jobs:
       - name: Update Applitools batch status 
         uses: wei/curl@v1.1.1
         with:
-          args: -X DELETE https://applitools.com/api/sessions/bypointerid/${{ env.APPLITOOLS_BATCH_ID }}?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
+          args: -X DELETE https://eyesapi.applitools.com/api/sessions/bypointerid/${{ env.APPLITOOLS_BATCH_ID }}?apiKey=${{ secrets.APPLITOOLS_API_KEY }}
