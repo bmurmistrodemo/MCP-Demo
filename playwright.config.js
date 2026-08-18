@@ -36,7 +36,6 @@ export default defineConfig({
     eyesConfig: {
       apiKey: process.env.APPLITOOLS_API_KEY,
       failTestsOnDiff: false,
-      dontCloseBatches: false
     },
   },
 
