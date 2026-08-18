@@ -4,6 +4,9 @@ on:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+env:
+  APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
+  APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
 jobs:
   test:
     timeout-minutes: 60
@@ -19,9 +22,6 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npx playwright test
-      env:
-        APPLITOOLS_API_KEY: ${{ secrets.APPLITOOLS_API_KEY }}
-        APPLITOOLS_BATCH_ID: ${{ github.event.pull_request.head.sha || github.sha }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
@@ -30,10 +30,10 @@ jobs:
         retention-days: 30
   batch-completion-notification:
     needs: test
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Update Applitools batch status
-        uses: wei/curl@v1.1.1
-        with:
-          args: -v -X POST -d -H "accept:*/*" https://eyesapi.applitools.com/api/externals/github/servers/github.com/commit/${{env.APPLITOOLS_BATCH_ID}}/complete?apiKey=${{env.APPLITOOLS_API_KEY}}        
-
+        run: |
+          curl -v -X POST -H "accept: */*" \
+            "https://eyesapi.applitools.com/api/externals/github/servers/github.com/commit/${APPLITOOLS_BATCH_ID}/complete?apiKey=${APPLITOOLS_API_KEY}"
